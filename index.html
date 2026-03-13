@@ -376,15 +376,10 @@ body{font-family:var(--font-body);background:var(--bg-base);color:var(--text-pri
 
 <script>
 // ═══════════════════════════════════════════
-//  SUPABASE CONFIG
+//  API CONFIG — keys are server-side only
 // ═══════════════════════════════════════════
-const SB_URL = 'https://smncejhkzlpajujkvton.supabase.co/rest/v1';
-const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNtbmNlamhremxwYWp1amt2dG9uIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzI4MzU2MzIsImV4cCI6MjA0ODQxMTYzMn0.qQ08kj-lyrdWuAXS7-aIBRhT_BAP251yM5GAKwO9Y-M';
-
-async function sb(table, params = '') {
-  const res = await fetch(`${SB_URL}/${table}?${params}`, {
-    headers: { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}` }
-  });
+async function fetchDashboardData() {
+  const res = await fetch('/api/dashboard');
   if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
   return res.json();
 }
@@ -429,17 +424,22 @@ async function loadDashboard() {
   const now = new Date();
   document.getElementById('lastUpdate').textContent = now.toLocaleDateString('pt-PT') + ' · ' + now.toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'});
 
-  let clientes = [], perguntas = [], pins = [], chats = [];
-  let errors = [];
-
-  try { clientes = await sb('clientes_teresa', 'select=*&order=created_at.desc'); } catch(e) { errors.push('clientes_teresa'); }
-  try { perguntas = await sb('ntg_perguntas', 'select=*&order=created_at.desc'); } catch(e) { errors.push('ntg_perguntas'); }
-  try { pins = await sb('pins_coimbra', 'select=*&order=id'); } catch(e) { errors.push('pins_coimbra'); }
-  try { chats = await sb('chats_teresa', 'select=id&limit=1'); } catch(e) { errors.push('chats_teresa'); }
-
-  if (errors.length > 0) {
+  let data;
+  try {
+    data = await fetchDashboardData();
+  } catch (err) {
     document.getElementById('connStatus').className = 'conn-status empty';
-    document.getElementById('connStatus').textContent = 'Erro: ' + errors.join(', ');
+    document.getElementById('connStatus').textContent = 'Erro de conexao';
+    console.error(err);
+    return;
+  }
+
+  const { clientes = [], perguntas = [], pins = [], chats_count = 0 } = data;
+
+  if (data.error) {
+    document.getElementById('connStatus').className = 'conn-status empty';
+    document.getElementById('connStatus').textContent = 'Erro: ' + data.error;
+    return;
   }
 
   // ─── KPIs ───
@@ -630,7 +630,7 @@ async function loadDashboard() {
     {icon:'💬',name:'ntg_perguntas',rows:totalPerguntas,color:'teal',desc:'Perguntas classificadas'},
     {icon:'👤',name:'clientes_teresa',rows:totalClientes,color:'purple',desc:'Perfis dos turistas'},
     {icon:'📍',name:'pins_coimbra',rows:totalPins,color:'orange',desc:'Base de conhecimento'},
-    {icon:'💬',name:'chats_teresa',rows:chats.length||0,color:'sky',desc:'Historico de mensagens'},
+    {icon:'💬',name:'chats_teresa',rows:chats_count||0,color:'sky',desc:'Historico de mensagens'},
   ];
   archEl.innerHTML = tables.map(t => `
     <div class="arch-node arch-node-${t.color}">
