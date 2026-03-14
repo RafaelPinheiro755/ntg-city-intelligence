@@ -6,7 +6,7 @@
 <title>NTG City Intelligence™ — Coimbra</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Source+Sans+3:ital,wght@0,300;0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -21,8 +21,6 @@
 html{font-size:15px;scroll-behavior:smooth}
 body{font-family:var(--font-body);background:var(--bg-base);color:var(--text-primary);min-height:100vh;-webkit-font-smoothing:antialiased;display:flex}
 ::-webkit-scrollbar{width:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-
-/* SIDEBAR */
 .sidebar{width:var(--sidebar-w);height:100vh;position:fixed;top:0;left:0;z-index:50;background:var(--bg-surface);border-right:1px solid var(--border-subtle);display:flex;flex-direction:column;transition:transform .3s}
 .sidebar-brand{padding:1.5rem 1.25rem;display:flex;align-items:center;gap:.75rem;border-bottom:1px solid var(--border-subtle)}
 .sidebar-logo{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--accent),#c4915a);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;font-size:13px;color:var(--bg-base);flex-shrink:0}
@@ -38,76 +36,48 @@ body{font-family:var(--font-body);background:var(--bg-base);color:var(--text-pri
 .sidebar-item.active svg{opacity:1}
 .sidebar-item .item-badge{margin-left:auto;font-family:var(--font-mono);font-size:.6rem;padding:.1rem .4rem;border-radius:8px;background:var(--bg-elevated);color:var(--text-muted)}
 .sidebar-footer{padding:1rem 1.25rem;border-top:1px solid var(--border-subtle)}
-.sidebar-city{display:flex;align-items:center;gap:.5rem;padding:.5rem .75rem;border-radius:var(--radius-sm);background:var(--bg-elevated);font-size:.82rem;color:var(--text-secondary)}
+.sidebar-city{display:flex;align-items:center;gap:.5rem;padding:.5rem .75rem;border-radius:var(--radius-sm);background:var(--bg-elevated);font-size:.82rem}
 .sidebar-city-dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 8px var(--teal-dim);animation:pulse-dot 2.5s ease-in-out infinite}
 @keyframes pulse-dot{0%,100%{opacity:1}50%{opacity:.4}}
-.sidebar-city-name{flex:1;font-weight:500;color:var(--text-primary)}
-.sidebar-city-status{font-family:var(--font-mono);font-size:.6rem;color:var(--teal)}
-
-/* MAIN */
 .main{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column}
 .topbar{height:var(--topbar-h);padding:0 2rem;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border-subtle);background:var(--bg-surface);position:sticky;top:0;z-index:40}
 .topbar-left{display:flex;align-items:center;gap:1rem}
 .topbar-title{font-family:var(--font-display);font-size:1.1rem;font-weight:600;letter-spacing:-.02em}
-.topbar-right{display:flex;align-items:center;gap:.75rem}
-.topbar-select{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);color:var(--text-primary);padding:.4rem .85rem;font-family:var(--font-body);font-size:.8rem;cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' fill='%236b6b75' viewBox='0 0 16 16'%3E%3Cpath d='M8 11L3 6h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right .65rem center;padding-right:1.8rem;transition:border-color .2s}
-.topbar-select:hover{border-color:var(--accent-dim)}
-.topbar-select:focus{outline:none;border-color:var(--accent)}
 .mobile-toggle{display:none;background:none;border:none;color:var(--text-primary);cursor:pointer;padding:.25rem}
 .content{flex:1;padding:1.75rem 2rem 3rem}
-
-/* PAGE HEADER */
-.page-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.75rem}
-.page-header h1{font-family:var(--font-display);font-size:1.5rem;font-weight:300;letter-spacing:-.03em}
-.page-header h1 strong{font-weight:700;color:var(--accent)}
-.page-header-meta{text-align:right}
-.page-header-date{font-size:.75rem;color:var(--text-muted);font-family:var(--font-mono)}
-.page-header-live{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--font-mono);font-size:.65rem;color:var(--teal);margin-top:.25rem}
-
-/* CARDS */
-.card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius);padding:1.5rem;position:relative;transition:border-color .2s,box-shadow .25s}
-.card:hover{border-color:var(--border);box-shadow:0 4px 20px rgba(0,0,0,.15)}
-.card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem}
-.card-title{font-family:var(--font-display);font-size:.9rem;font-weight:600;letter-spacing:-.01em}
-.card-subtitle{font-size:.72rem;color:var(--text-muted);margin-top:.15rem}
-.card-badges{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
-.card-badge{font-family:var(--font-mono);font-size:.6rem;padding:.15rem .45rem;border-radius:6px;background:var(--accent-glow);color:var(--accent)}
-
-/* DATASOURCE PILLS */
-.datasource{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .55rem;border-radius:6px;font-family:var(--font-mono);font-size:.55rem;font-weight:500;letter-spacing:.02em;border:1px solid var(--border-subtle);color:var(--text-muted);cursor:default;position:relative}
-.datasource::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
-.datasource-perguntas{background:#5bc4a80a;border-color:#5bc4a830}.datasource-perguntas::before{background:var(--teal)}
-.datasource-clientes{background:#a78bfa0a;border-color:#a78bfa30}.datasource-clientes::before{background:var(--purple)}
-.datasource-pins{background:#e8845a0a;border-color:#e8845a30}.datasource-pins::before{background:var(--orange)}
-.datasource-multi{background:#f59e0b0a;border-color:#f59e0b30}.datasource-multi::before{background:var(--amber)}
-.datasource .ds-tip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:var(--bg-elevated);border:1px solid var(--border);border-radius:8px;padding:.5rem .65rem;font-size:.65rem;color:var(--text-secondary);white-space:nowrap;z-index:10;font-family:var(--font-body);font-weight:400;letter-spacing:0;box-shadow:0 4px 12px rgba(0,0,0,.3)}
-.datasource .ds-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--bg-elevated)}
-.datasource:hover .ds-tip{display:block}
-
-/* CONNECTION STATUS */
 .conn-status{display:flex;align-items:center;gap:.4rem;padding:.3rem .65rem;border-radius:8px;font-family:var(--font-mono);font-size:.62rem;font-weight:500}
 .conn-status.live{background:#5bc4a815;color:var(--teal);border:1px solid #5bc4a830}
 .conn-status.live::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--teal);box-shadow:0 0 6px var(--teal);animation:pulse-dot 2s infinite}
 .conn-status.empty{background:#e8845a15;color:var(--orange);border:1px solid #e8845a30}
-.conn-status.empty::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--orange)}
-
-/* EMPTY STATE */
-.empty-state{text-align:center;padding:2rem 1rem;color:var(--text-muted)}
-.empty-state-icon{font-size:2.5rem;margin-bottom:.5rem;opacity:.5}
-.empty-state-title{font-family:var(--font-display);font-size:.9rem;font-weight:600;color:var(--text-secondary);margin-bottom:.25rem}
-.empty-state-desc{font-size:.75rem;line-height:1.5;max-width:300px;margin:0 auto}
-.empty-state-code{display:inline-block;background:var(--bg-elevated);padding:.15rem .4rem;border-radius:4px;font-family:var(--font-mono);font-size:.65rem;color:var(--accent);margin-top:.5rem}
-
-/* GRIDS */
+.live-hero{background:linear-gradient(135deg,var(--bg-card),var(--bg-elevated));border:1px solid var(--border-subtle);border-radius:var(--radius);padding:2rem;margin-bottom:1.25rem;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
+.live-hero::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--teal),var(--accent),transparent)}
+.live-hero-left{display:flex;align-items:center;gap:1.5rem}
+.live-hero-number{font-family:var(--font-display);font-size:4rem;font-weight:800;letter-spacing:-.06em;line-height:1;color:var(--teal)}
+.live-hero-label{font-size:.85rem;color:var(--text-secondary)}
+.live-hero-label strong{display:block;font-family:var(--font-display);font-size:1.1rem;font-weight:600;color:var(--text-primary);margin-bottom:.15rem}
+.live-hero-right{display:flex;gap:2rem;align-items:center}
+.live-hero-stat{text-align:center}
+.live-hero-stat-val{font-family:var(--font-display);font-size:1.6rem;font-weight:700;line-height:1}
+.live-hero-stat-label{font-size:.65rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-top:.2rem}
+.live-hero-pulse{width:12px;height:12px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px var(--teal),0 0 24px var(--teal-dim);animation:hero-pulse 1.5s ease-in-out infinite}
+@keyframes hero-pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.3);opacity:.6}}
+.card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius);padding:1.5rem;position:relative;transition:border-color .2s,box-shadow .25s}
+.card:hover{border-color:var(--border);box-shadow:0 4px 20px rgba(0,0,0,.15)}
+.card-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1.25rem}
+.card-title{font-family:var(--font-display);font-size:.9rem;font-weight:600}
+.card-subtitle{font-size:.72rem;color:var(--text-muted);margin-top:.15rem}
+.card-badges{display:flex;gap:.4rem;flex-wrap:wrap;align-items:center}
+.card-badge{font-family:var(--font-mono);font-size:.6rem;padding:.15rem .45rem;border-radius:6px;background:var(--accent-glow);color:var(--accent)}
+.ds{display:inline-flex;align-items:center;gap:.3rem;padding:.2rem .55rem;border-radius:6px;font-family:var(--font-mono);font-size:.55rem;font-weight:500;border:1px solid var(--border-subtle);color:var(--text-muted)}
+.ds::before{content:'';width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.ds-p{background:#5bc4a80a;border-color:#5bc4a830}.ds-p::before{background:var(--teal)}
+.ds-c{background:#a78bfa0a;border-color:#a78bfa30}.ds-c::before{background:var(--purple)}
+.ds-pins{background:#e8845a0a;border-color:#e8845a30}.ds-pins::before{background:var(--orange)}
+.ds-ch{background:#60a5fa0a;border-color:#60a5fa30}.ds-ch::before{background:var(--sky)}
 .grid{display:grid;gap:1rem;margin-bottom:1rem}
-.grid-4{grid-template-columns:repeat(4,1fr)}
-.grid-2{grid-template-columns:1fr 1fr}
-.grid-5-7{grid-template-columns:5fr 7fr}
-.grid-7-5{grid-template-columns:7fr 5fr}
+.grid-4{grid-template-columns:repeat(4,1fr)}.grid-2{grid-template-columns:1fr 1fr}.grid-7-5{grid-template-columns:7fr 5fr}.grid-5-7{grid-template-columns:5fr 7fr}
 .section-label{font-family:var(--font-display);font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.1em;color:var(--text-muted);margin-bottom:.75rem;margin-top:.5rem;display:flex;align-items:center;gap:.5rem}
 .section-label::after{content:'';flex:1;height:1px;background:var(--border-subtle)}
-
-/* KPI */
 .kpi{padding:1.25rem 1.35rem}
 .kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem}
 .kpi-label{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-family:var(--font-display);font-weight:500}
@@ -115,16 +85,33 @@ body{font-family:var(--font-body);background:var(--bg-base);color:var(--text-pri
 .kpi-value .unit{font-size:1rem;font-weight:400;color:var(--text-muted)}
 .kpi-footer{display:flex;align-items:center;gap:.3rem;margin-top:.5rem;font-family:var(--font-mono);font-size:.65rem}
 .kpi-footer.up{color:var(--teal)}.kpi-footer.neutral{color:var(--text-muted)}.kpi-footer.warn{color:var(--orange)}
-
-/* CHART */
+.gauge-wrap{display:flex;align-items:center;gap:1.5rem;padding:.5rem 0}
+.gauge-ring{position:relative;width:130px;height:130px;flex-shrink:0}
+.gauge-ring canvas{width:100%!important;height:100%!important}
+.gauge-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center}
+.gauge-pct{font-family:var(--font-display);font-size:1.8rem;font-weight:800;line-height:1}
+.gauge-sub{font-size:.6rem;color:var(--text-muted);margin-top:.1rem}
+.gauge-details{flex:1}
+.gauge-row{display:flex;justify-content:space-between;align-items:center;padding:.4rem 0;border-bottom:1px solid var(--border-subtle);font-size:.78rem}
+.gauge-row:last-child{border-bottom:none}
+.gauge-dot{width:8px;height:8px;border-radius:50%;margin-right:.4rem;display:inline-block}
+.rank-list{list-style:none}
+.rank-item{display:flex;align-items:center;gap:.6rem;padding:.7rem 0;border-bottom:1px solid var(--border-subtle)}
+.rank-item:last-child{border-bottom:none}
+.rank-pos{font-family:var(--font-display);font-size:1.1rem;font-weight:800;width:1.8rem;text-align:center;flex-shrink:0}
+.rank-pos.r1{color:var(--accent)}.rank-pos.r2{color:var(--text-secondary)}.rank-pos.r3{color:var(--orange)}
+.rank-info{flex:1}
+.rank-name{font-size:.85rem;font-weight:600}
+.rank-count-label{font-size:.65rem;color:var(--text-muted);font-family:var(--font-mono)}
+.rank-bar-wrap{flex:1;max-width:140px;height:8px;background:var(--bg-elevated);border-radius:4px;overflow:hidden}
+.rank-bar{height:100%;border-radius:4px;transition:width .8s cubic-bezier(.22,.61,.36,1)}
+.rank-count{font-family:var(--font-mono);font-size:.8rem;font-weight:600;width:2.5rem;text-align:right;flex-shrink:0}
 .chart-wrap{position:relative;width:100%}
 .chart-wrap canvas{width:100%!important}
-.donut-container{position:relative;max-width:260px;margin:0 auto}
-.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
-.donut-center-val{font-family:var(--font-display);font-size:1.75rem;font-weight:700;color:var(--accent)}
-.donut-center-label{font-size:.65rem;color:var(--text-muted);margin-top:.1rem}
-
-/* RANKED LIST */
+.heatmap{display:grid;gap:3px}
+.heatmap-cell{border-radius:4px;display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:.6rem;color:var(--text-primary);min-height:36px;transition:transform .1s}
+.heatmap-cell:hover{transform:scale(1.08);z-index:1}
+.heatmap-label{font-size:.62rem;color:var(--text-muted);text-align:center;font-family:var(--font-display);font-weight:500}
 .ranked-list{list-style:none}
 .ranked-item{display:flex;align-items:center;gap:.6rem;padding:.55rem 0;border-bottom:1px solid var(--border-subtle)}
 .ranked-item:last-child{border-bottom:none}
@@ -132,27 +119,8 @@ body{font-family:var(--font-body);background:var(--bg-base);color:var(--text-pri
 .ranked-pos.top{color:var(--accent);font-weight:600}
 .ranked-name{flex:1;font-size:.82rem;font-weight:500}
 .ranked-tipo{font-family:var(--font-mono);font-size:.55rem;padding:.1rem .35rem;border-radius:4px;flex-shrink:0}
-.ranked-tipo.nt{background:#a78bfa18;color:var(--purple)}
-.ranked-tipo.ess{background:#5bc4a818;color:var(--teal)}
+.ranked-tipo.nt{background:#a78bfa18;color:var(--purple)}.ranked-tipo.ess{background:#5bc4a818;color:var(--teal)}
 .ranked-zona{font-size:.68rem;color:var(--text-muted);flex-shrink:0;max-width:100px;text-align:right}
-
-/* LANGUAGE BARS */
-.lang-row{display:flex;align-items:center;gap:.65rem;padding:.55rem 0}
-.lang-flag{font-size:1.1rem;width:1.5rem;text-align:center}
-.lang-name{width:5.5rem;font-size:.82rem;font-weight:500}
-.lang-bar-wrap{flex:1;height:8px;background:var(--bg-elevated);border-radius:4px;overflow:hidden}
-.lang-bar{height:100%;border-radius:4px;transition:width 1s cubic-bezier(.22,.61,.36,1)}
-.lang-pct{font-family:var(--font-mono);font-size:.75rem;color:var(--text-secondary);width:3.5rem;text-align:right}
-
-/* PROFILE */
-.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
-.profile-card{background:var(--bg-elevated);border-radius:var(--radius-sm);padding:.85rem;text-align:center;transition:background .15s}
-.profile-card:hover{background:var(--bg-hover)}
-.profile-icon{font-size:1.3rem;margin-bottom:.2rem}
-.profile-label{font-size:.62rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:.05em}
-.profile-value{font-family:var(--font-display);font-size:1.35rem;font-weight:700;margin:.1rem 0}
-
-/* TABLE */
 .data-table{width:100%;border-collapse:separate;border-spacing:0}
 .data-table thead th{text-align:left;font-family:var(--font-display);font-size:.62rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-muted);padding:.55rem .6rem;border-bottom:1px solid var(--border-subtle);font-weight:600}
 .data-table tbody tr{transition:background .1s}
@@ -162,503 +130,194 @@ body{font-family:var(--font-body);background:var(--bg-base);color:var(--text-pri
 .tag-alimentacao{background:#e8845a15;color:var(--orange)}.tag-cultura{background:#a78bfa15;color:var(--purple)}.tag-natureza{background:#84cc1615;color:var(--lime)}.tag-vida_noturna{background:#f472b615;color:var(--rose)}.tag-transporte{background:#60a5fa15;color:var(--sky)}.tag-compras{background:#f59e0b15;color:var(--amber)}.tag-roteiro{background:#5bc4a815;color:var(--teal)}.tag-outro{background:#6b6b7515;color:var(--text-muted)}
 .status-dot{display:inline-block;width:6px;height:6px;border-radius:50%;margin-right:.35rem}
 .status-dot.pending{background:var(--orange);box-shadow:0 0 5px var(--orange)}
-.status-dot.ok{background:var(--teal);box-shadow:0 0 5px var(--teal)}
-
-/* PERF */
-.perf-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.perf-metric{text-align:center}
-.perf-ring-wrap{position:relative;width:100px;height:100px;margin:0 auto .6rem}
-.perf-ring-wrap canvas{width:100%!important;height:100%!important}
-.perf-ring-val{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-display);font-size:1.3rem;font-weight:700}
-.perf-label{font-size:.75rem;color:var(--text-secondary);font-weight:500}
-.perf-sub{font-size:.62rem;color:var(--text-muted);margin-top:.1rem;font-family:var(--font-mono)}
+.perf-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem}
+.perf-metric{text-align:center;padding:.75rem;background:var(--bg-elevated);border-radius:var(--radius-sm)}
+.perf-big{font-family:var(--font-display);font-size:1.6rem;font-weight:700;line-height:1}
+.perf-label{font-size:.68rem;color:var(--text-secondary);font-weight:500;margin-top:.2rem}
+.perf-sub{font-size:.58rem;color:var(--text-muted);margin-top:.1rem;font-family:var(--font-mono)}
 .stat-row{display:flex;justify-content:space-between;align-items:center;padding:.5rem 0;border-bottom:1px solid var(--border-subtle)}
 .stat-row:last-child{border-bottom:none}
-.stat-label{font-size:.72rem;color:var(--text-muted)}
-.stat-value{font-family:var(--font-mono);font-size:.78rem}
-
-/* ARCH */
+.stat-label{font-size:.72rem;color:var(--text-muted)}.stat-value{font-family:var(--font-mono);font-size:.78rem}
 .arch-map{display:grid;grid-template-columns:repeat(4,1fr);gap:.6rem;margin-top:.75rem}
-.arch-node{padding:.65rem;border-radius:var(--radius-sm);text-align:center;border:1px solid var(--border-subtle);transition:border-color .2s}
-.arch-node:hover{border-color:var(--accent-dim)}
+.arch-node{padding:.65rem;border-radius:var(--radius-sm);text-align:center;border:1px solid var(--border-subtle)}
 .arch-node-icon{font-size:1.1rem;margin-bottom:.2rem}
 .arch-node-name{font-family:var(--font-mono);font-size:.6rem;font-weight:500;color:var(--text-primary)}
-.arch-node-rows{font-size:.55rem;color:var(--text-muted);margin-top:.1rem}
 .arch-node-count{font-family:var(--font-display);font-size:1rem;font-weight:700;margin-top:.2rem}
+.arch-node-rows{font-size:.55rem;color:var(--text-muted);margin-top:.1rem}
 .arch-node-teal{background:#5bc4a808}.arch-node-purple{background:#a78bfa08}.arch-node-orange{background:#e8845a08}.arch-node-sky{background:#60a5fa08}
-
-/* ANIMATIONS */
+.empty-state{text-align:center;padding:2rem 1rem;color:var(--text-muted)}
+.empty-state-icon{font-size:2.5rem;margin-bottom:.5rem;opacity:.5}
+.empty-state-title{font-family:var(--font-display);font-size:.9rem;font-weight:600;color:var(--text-secondary);margin-bottom:.25rem}
+.empty-state-desc{font-size:.75rem;line-height:1.5;max-width:300px;margin:0 auto}
+.empty-state-code{display:inline-block;background:var(--bg-elevated);padding:.15rem .4rem;border-radius:4px;font-family:var(--font-mono);font-size:.65rem;color:var(--accent);margin-top:.5rem}
 @keyframes fade-in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .ani{animation:fade-in .4s ease both}
-.d1{animation-delay:.04s}.d2{animation-delay:.08s}.d3{animation-delay:.12s}.d4{animation-delay:.16s}
-.d5{animation-delay:.2s}.d6{animation-delay:.24s}.d7{animation-delay:.28s}
-
-/* RESPONSIVE */
-@media(max-width:1100px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.mobile-toggle{display:block}.grid-4{grid-template-columns:repeat(2,1fr)}.grid-2,.grid-5-7,.grid-7-5{grid-template-columns:1fr}.arch-map{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.content{padding:1rem}.grid-4{grid-template-columns:1fr}.topbar{padding:0 1rem}}
+.d1{animation-delay:.04s}.d2{animation-delay:.08s}.d3{animation-delay:.12s}.d4{animation-delay:.16s}.d5{animation-delay:.2s}.d6{animation-delay:.24s}
+@media(max-width:1100px){.sidebar{transform:translateX(-100%)}.sidebar.open{transform:translateX(0)}.main{margin-left:0}.mobile-toggle{display:block}.grid-4{grid-template-columns:repeat(2,1fr)}.grid-2,.grid-5-7,.grid-7-5{grid-template-columns:1fr}.arch-map{grid-template-columns:repeat(2,1fr)}.live-hero{flex-direction:column;gap:1.5rem;text-align:center}.live-hero-left{flex-direction:column}.live-hero-right{justify-content:center}.perf-grid{grid-template-columns:1fr 1fr 1fr}}
+@media(max-width:600px){.content{padding:1rem}.grid-4{grid-template-columns:1fr}.topbar{padding:0 1rem}.live-hero-number{font-size:3rem}.perf-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
-
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
-  <div class="sidebar-brand">
-    <div class="sidebar-logo">CI</div>
-    <div class="sidebar-brand-text"><h2>City Intelligence</h2><span>NON-TOURIST GUIDE</span></div>
-  </div>
+  <div class="sidebar-brand"><div class="sidebar-logo">CI</div><div class="sidebar-brand-text"><h2>City Intelligence</h2><span>NON-TOURIST GUIDE</span></div></div>
   <nav class="sidebar-nav">
-    <div class="sidebar-section">
-      <div class="sidebar-section-label">Visao Geral</div>
-      <a class="sidebar-item active" href="#overview"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
-      <a class="sidebar-item" href="#intencao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10"/><path d="M2 12h20"/></svg>Intencao Turistica<span class="item-badge" id="badgePerguntas">0</span></a>
-      <a class="sidebar-item" href="#perfil"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Perfil Turista</a>
+    <div class="sidebar-section"><div class="sidebar-section-label">Visao Geral</div>
+      <a class="sidebar-item active" href="#live"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>Dashboard</a>
+      <a class="sidebar-item" href="#crescimento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>Crescimento</a>
+      <a class="sidebar-item" href="#intencao"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 2a15 15 0 0 1 4 10 15 15 0 0 1-4 10"/><path d="M2 12h20"/></svg>Intencao<span class="item-badge" id="badgeP">0</span></a>
     </div>
-    <div class="sidebar-section">
-      <div class="sidebar-section-label">Analise</div>
-      <a class="sidebar-item" href="#respostas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Performance Teresa</a>
-      <a class="sidebar-item" href="#oportunidades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Oportunidades<span class="item-badge" id="badgeOport" style="background:var(--orange);color:var(--bg-base)">0</span></a>
-      <a class="sidebar-item" href="#dados"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>Fontes de Dados</a>
+    <div class="sidebar-section"><div class="sidebar-section-label">Analise</div>
+      <a class="sidebar-item" href="#comportamento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>Comportamento</a>
+      <a class="sidebar-item" href="#performance"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Performance</a>
+      <a class="sidebar-item" href="#oportunidades"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>Oportunidades<span class="item-badge" id="badgeO" style="background:var(--orange);color:var(--bg-base)">0</span></a>
+      <a class="sidebar-item" href="#dados"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>Dados</a>
     </div>
   </nav>
-  <div class="sidebar-footer">
-    <div class="sidebar-city">
-      <div class="sidebar-city-dot"></div>
-      <div class="sidebar-city-name">Coimbra</div>
-      <div class="sidebar-city-status">LIVE</div>
-    </div>
-  </div>
+  <div class="sidebar-footer"><div class="sidebar-city"><div class="sidebar-city-dot"></div><span style="flex:1;font-weight:500;color:var(--text-primary)">Coimbra</span><span style="font-family:var(--font-mono);font-size:.6rem;color:var(--teal)">LIVE</span></div></div>
 </aside>
-
-<!-- MAIN -->
 <div class="main">
   <header class="topbar">
-    <div class="topbar-left">
-      <button class="mobile-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-      <div class="topbar-title">Dashboard</div>
-      <div class="conn-status live" id="connStatus">Supabase conectado</div>
-    </div>
-    <div class="topbar-right">
-      <select class="topbar-select" id="dateRange"><option>Todos os dados</option><option>Ultimos 30 dias</option><option>Ultimos 7 dias</option><option>Hoje</option></select>
-    </div>
+    <div class="topbar-left"><button class="mobile-toggle" onclick="document.getElementById('sidebar').classList.toggle('open')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button><div class="topbar-title">Dashboard</div><div class="conn-status live" id="connStatus">Supabase conectado</div></div>
+    <div class="topbar-right"><span style="font-family:var(--font-mono);font-size:.65rem;color:var(--text-muted)" id="lastUpdate"></span></div>
   </header>
-
   <div class="content">
-    <div class="page-header ani">
-      <div><h1>Inteligencia Turistica — <strong>Coimbra</strong></h1></div>
-      <div class="page-header-meta">
-        <div class="page-header-date" id="lastUpdate"></div>
-        <div class="page-header-live"><div class="sidebar-city-dot" style="width:6px;height:6px"></div> Dados reais · Supabase</div>
-      </div>
-    </div>
-
+    <!-- 6. LIVE HERO -->
+    <div class="live-hero ani" id="live"><div class="live-hero-left"><div class="live-hero-pulse"></div><div><div class="live-hero-number" id="heroNum">-</div><div class="live-hero-label"><strong>Interacoes Hoje</strong>Turistas + mensagens em tempo real</div></div></div><div class="live-hero-right"><div class="live-hero-stat"><div class="live-hero-stat-val" id="heroT" style="color:var(--accent)">-</div><div class="live-hero-stat-label">Turistas Hoje</div></div><div class="live-hero-stat"><div class="live-hero-stat-val" id="heroM" style="color:var(--sky)">-</div><div class="live-hero-stat-label">Mensagens Hoje</div></div><div class="live-hero-stat"><div class="live-hero-stat-val" id="heroP" style="color:var(--orange)">-</div><div class="live-hero-stat-label">Pins na Base</div></div></div></div>
     <!-- KPIs -->
-    <div class="section-label" id="overview">Metricas Principais</div>
     <div class="grid grid-4 ani d1">
-      <div class="card kpi">
-        <div class="kpi-top"><div class="kpi-label">Turistas Registados</div><div class="datasource datasource-clientes">clientes_teresa<div class="ds-tip">SELECT COUNT(*) FROM clientes_teresa</div></div></div>
-        <div class="kpi-value" id="kpiTuristas">-</div>
-        <div class="kpi-footer neutral" id="kpiTuristasInfo">A carregar...</div>
-      </div>
-      <div class="card kpi">
-        <div class="kpi-top"><div class="kpi-label">Onboarding Completo</div><div class="datasource datasource-clientes">clientes_teresa<div class="ds-tip">SELECT COUNT(*) FROM clientes_teresa WHERE nome IS NOT NULL AND idioma IS NOT NULL</div></div></div>
-        <div class="kpi-value" style="color:var(--teal)" id="kpiOnboard">-</div>
-        <div class="kpi-footer neutral" id="kpiOnboardInfo">A carregar...</div>
-      </div>
-      <div class="card kpi">
-        <div class="kpi-top"><div class="kpi-label">Perguntas Classificadas</div><div class="datasource datasource-perguntas">ntg_perguntas<div class="ds-tip">SELECT COUNT(*) FROM ntg_perguntas</div></div></div>
-        <div class="kpi-value" style="color:var(--orange)" id="kpiPerguntas">-</div>
-        <div class="kpi-footer neutral" id="kpiPerguntasInfo">A carregar...</div>
-      </div>
-      <div class="card kpi">
-        <div class="kpi-top"><div class="kpi-label">Pins na Base</div><div class="datasource datasource-pins">pins_coimbra<div class="ds-tip">SELECT COUNT(*) FROM pins_coimbra</div></div></div>
-        <div class="kpi-value" id="kpiPins">-</div>
-        <div class="kpi-footer neutral" id="kpiPinsInfo">A carregar...</div>
-      </div>
+      <div class="card kpi"><div class="kpi-top"><div class="kpi-label">Turistas Total</div><div class="ds ds-c">clientes_teresa</div></div><div class="kpi-value" id="k1">-</div><div class="kpi-footer neutral" id="k1i">...</div></div>
+      <div class="card kpi"><div class="kpi-top"><div class="kpi-label">Perguntas</div><div class="ds ds-p">ntg_perguntas</div></div><div class="kpi-value" style="color:var(--teal)" id="k2">-</div><div class="kpi-footer neutral" id="k2i">...</div></div>
+      <div class="card kpi"><div class="kpi-top"><div class="kpi-label">Mensagens</div><div class="ds ds-ch">chats_teresa</div></div><div class="kpi-value" style="color:var(--sky)" id="k3">-</div><div class="kpi-footer neutral" id="k3i">...</div></div>
+      <div class="card kpi"><div class="kpi-top"><div class="kpi-label">Pins Base</div><div class="ds ds-pins">pins_coimbra</div></div><div class="kpi-value" style="color:var(--orange)" id="k4">-</div><div class="kpi-footer neutral" id="k4i">...</div></div>
     </div>
-
-    <!-- INTENCAO -->
-    <div class="section-label" id="intencao">Intencao Turistica</div>
-    <div class="grid grid-5-7 ani d2">
-      <div class="card">
-        <div class="card-header">
-          <div><div class="card-title">Intencao por Categoria</div><div class="card-subtitle">Distribuicao de perguntas classificadas</div></div>
-          <div class="datasource datasource-perguntas">ntg_perguntas<div class="ds-tip">SELECT categoria, COUNT(*) FROM ntg_perguntas GROUP BY categoria</div></div>
-        </div>
-        <div id="donutArea"></div>
-      </div>
-      <div class="card" id="respostas">
-        <div class="card-header">
-          <div><div class="card-title">Analise de Respostas</div><div class="card-subtitle">Respondida vs. pendente por categoria</div></div>
-          <div class="datasource datasource-perguntas">ntg_perguntas<div class="ds-tip">SELECT categoria, respondida, COUNT(*) FROM ntg_perguntas GROUP BY 1,2</div></div>
-        </div>
-        <div id="responseArea"></div>
-      </div>
-    </div>
-
-    <!-- IDIOMA + PERFIL -->
-    <div class="section-label" id="perfil">Turistas & Locais</div>
-    <div class="grid grid-2 ani d3">
-      <div class="card">
-        <div class="card-header">
-          <div><div class="card-title">Distribuicao por Idioma</div><div class="card-subtitle">Idioma dos turistas registados</div></div>
-          <div class="datasource datasource-clientes">clientes_teresa<div class="ds-tip">SELECT idioma, COUNT(*) FROM clientes_teresa WHERE idioma IS NOT NULL GROUP BY idioma</div></div>
-        </div>
-        <div id="langArea"></div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div><div class="card-title">Base de Conhecimento — Coimbra</div><div class="card-subtitle">Pins por categoria</div></div>
-          <div class="datasource datasource-pins">pins_coimbra<div class="ds-tip">SELECT tipo, COUNT(*) FROM pins_coimbra GROUP BY tipo</div></div>
-        </div>
-        <div id="pinsTypeArea"></div>
-      </div>
-    </div>
-
-    <!-- LOCAIS + CLIENTES -->
-    <div class="grid grid-7-5 ani d4">
-      <div class="card">
-        <div class="card-header">
-          <div><div class="card-title">Pins de Coimbra</div><div class="card-subtitle">Todos os locais na base de conhecimento</div></div>
-          <div class="card-badges"><div class="card-badge" id="pinsBadge">0 PINS</div><div class="datasource datasource-pins">pins_coimbra</div></div>
-        </div>
-        <ul class="ranked-list" id="rankedPins"></ul>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div><div class="card-title">Turistas Recentes</div><div class="card-subtitle">Ultimos registos no onboarding</div></div>
-          <div class="datasource datasource-clientes">clientes_teresa</div>
-        </div>
-        <div id="clientesArea"></div>
-      </div>
-    </div>
-
-    <!-- OPORTUNIDADES + PERFORMANCE -->
-    <div class="section-label" id="oportunidades">Oportunidades & Performance</div>
-    <div class="grid grid-7-5 ani d5">
-      <div class="card">
-        <div class="card-header">
-          <div><div class="card-title">Perguntas Sem Resposta</div><div class="card-subtitle">Gaps na base de conhecimento</div></div>
-          <div class="card-badges"><div class="card-badge" id="pendBadge">0 PENDENTES</div><div class="datasource datasource-perguntas">ntg_perguntas<div class="ds-tip">SELECT * FROM ntg_perguntas WHERE respondida = false ORDER BY created_at DESC</div></div></div>
-        </div>
-        <div id="unansweredArea"></div>
-      </div>
-      <div class="card">
-        <div class="card-header">
-          <div><div class="card-title">Performance Teresa</div><div class="card-subtitle">Metricas do agente IA</div></div>
-          <div class="datasource datasource-perguntas">ntg_perguntas<div class="ds-tip">Calculado via duvida_teresa, respondida, follow_up_enviado</div></div>
-        </div>
-        <div id="perfArea"></div>
-      </div>
-    </div>
-
-    <!-- DATA ARCHITECTURE -->
+    <!-- 1. TIMELINE + 2. GAUGE -->
+    <div class="section-label" id="crescimento">Crescimento</div>
+    <div class="grid grid-7-5 ani d2"><div class="card"><div class="card-header"><div><div class="card-title">Novos Utilizadores por Dia</div><div class="card-subtitle">Ultimos 14 dias</div></div><div class="ds ds-c">clientes_teresa</div></div><div id="aTimeline"></div></div><div class="card"><div class="card-header"><div><div class="card-title">Taxa de Onboarding</div><div class="card-subtitle">Completo vs. abandonado</div></div><div class="ds ds-c">clientes_teresa</div></div><div id="aGauge"></div></div></div>
+    <!-- 4. TOP 5 + 3. HEATMAP -->
+    <div class="section-label" id="intencao">Intencao & Comportamento</div>
+    <div class="grid grid-2 ani d3" id="comportamento"><div class="card"><div class="card-header"><div><div class="card-title">Top 5 Categorias Mais Pedidas</div><div class="card-subtitle">Ranking de intencao turistica</div></div><div class="ds ds-p">ntg_perguntas</div></div><div id="aRank"></div></div><div class="card"><div class="card-header"><div><div class="card-title">Idioma x Horario de Entrada</div><div class="card-subtitle">Quando cada nacionalidade interage</div></div><div class="card-badges"><div class="ds ds-c">clientes_teresa</div><div class="ds ds-ch">chats_teresa</div></div></div><div id="aHeat"></div></div></div>
+    <!-- 5. ENGAGEMENT + PINS -->
+    <div class="section-label" id="performance">Performance & Engagement</div>
+    <div class="grid grid-2 ani d4"><div class="card"><div class="card-header"><div><div class="card-title">Engagement — Teresa</div><div class="card-subtitle">Metricas de conversacao</div></div><div class="card-badges"><div class="ds ds-ch">chats_teresa</div><div class="ds ds-p">ntg_perguntas</div></div></div><div id="aEng"></div></div><div class="card"><div class="card-header"><div><div class="card-title">Base de Conhecimento</div><div class="card-subtitle">Pins por tipo</div></div><div class="ds ds-pins">pins_coimbra</div></div><div id="aPins"></div></div></div>
+    <!-- LOCAIS + OPORTUNIDADES -->
+    <div class="section-label" id="oportunidades">Locais & Oportunidades</div>
+    <div class="grid grid-7-5 ani d5"><div class="card"><div class="card-header"><div><div class="card-title">Pins de Coimbra</div><div class="card-subtitle">Base de conhecimento completa</div></div><div class="card-badges"><div class="card-badge" id="bPins">0</div><div class="ds ds-pins">pins_coimbra</div></div></div><ul class="ranked-list" id="listPins" style="max-height:400px;overflow-y:auto"></ul></div><div class="card"><div class="card-header"><div><div class="card-title">Perguntas Sem Resposta</div><div class="card-subtitle">Oportunidades de conteudo</div></div><div class="card-badges"><div class="card-badge" id="bPend">0</div><div class="ds ds-p">ntg_perguntas</div></div></div><div id="aUnans"></div></div></div>
+    <!-- ARCHITECTURE -->
     <div class="section-label" id="dados">Arquitectura de Dados</div>
-    <div class="card ani d6">
-      <div class="card-header">
-        <div><div class="card-title">Fontes de Dados — Supabase (PostgreSQL)</div><div class="card-subtitle">Tabelas conectadas em tempo real</div></div>
-      </div>
-      <div class="arch-map" id="archMap"></div>
-      <div style="margin-top:1rem;padding:.75rem;background:var(--bg-elevated);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:.65rem;color:var(--text-muted);line-height:1.7">
-        <span style="color:var(--accent)">Fluxo:</span> Turista → WhatsApp → Teresa (n8n) → classificador IA → <span style="color:var(--teal)">ntg_perguntas</span> → Dashboard<br>
-        <span style="color:var(--accent)">Conexao:</span> Supabase REST API (anon key) · Refresh ao carregar pagina<br>
-        <span style="color:var(--accent)">Host:</span> <span style="color:var(--text-secondary)">smncejhkzlpajujkvton.supabase.co</span>
-      </div>
-    </div>
-
-    <!-- FOOTER -->
-    <div style="text-align:center;padding:2rem 0 .5rem;margin-top:.5rem">
-      <div style="font-family:var(--font-display);font-size:.72rem;color:var(--text-muted)">NTG City Intelligence™ · Non-Tourist Guide © 2025–2026 · <span style="color:var(--accent)">contact@nontouristguide.com</span></div>
-    </div>
+    <div class="card ani d6"><div class="card-header"><div><div class="card-title">Fontes de Dados — Supabase</div><div class="card-subtitle">Tabelas conectadas em tempo real</div></div></div><div class="arch-map" id="arch"></div><div style="margin-top:1rem;padding:.75rem;background:var(--bg-elevated);border-radius:var(--radius-sm);font-family:var(--font-mono);font-size:.65rem;color:var(--text-muted);line-height:1.7"><span style="color:var(--accent)">Fluxo:</span> Turista → WhatsApp → Teresa (n8n) → classificador → <span style="color:var(--teal)">ntg_perguntas</span> → Dashboard<br><span style="color:var(--accent)">Refresh:</span> Auto-refresh a cada 60 segundos</div></div>
+    <div style="text-align:center;padding:2rem 0 .5rem"><div style="font-family:var(--font-display);font-size:.72rem;color:var(--text-muted)">NTG City Intelligence™ · Non-Tourist Guide © 2025–2026 · <span style="color:var(--accent)">contact@nontouristguide.com</span></div></div>
   </div>
 </div>
-
 <script>
-// ═══════════════════════════════════════════
-//  API CONFIG — keys are server-side only
-// ═══════════════════════════════════════════
-async function fetchDashboardData() {
-  const res = await fetch('/api/dashboard');
-  if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-  return res.json();
-}
+const API='/api/dashboard';
+async function fetchData(){const r=await fetch(API);if(!r.ok)throw new Error(r.statusText);return r.json()}
 
-// ═══════════════════════════════════════════
-//  CHART.JS DEFAULTS
-// ═══════════════════════════════════════════
-Chart.defaults.color = '#6b6b75';
-Chart.defaults.font.family = "'Source Sans 3', system-ui, sans-serif";
-Chart.defaults.font.size = 11;
-Chart.defaults.plugins.legend.display = false;
-Chart.defaults.plugins.tooltip.backgroundColor = '#323238';
-Chart.defaults.plugins.tooltip.borderColor = '#3a3a42';
-Chart.defaults.plugins.tooltip.borderWidth = 1;
-Chart.defaults.plugins.tooltip.padding = { top:8, bottom:8, left:12, right:12 };
-Chart.defaults.plugins.tooltip.cornerRadius = 10;
-Chart.defaults.plugins.tooltip.titleFont = { family:"'Sora'", weight:'600', size:12 };
-Chart.defaults.plugins.tooltip.bodyFont = { family:"'IBM Plex Mono'", size:11 };
+Chart.defaults.color='#6b6b75';Chart.defaults.font.family="'Source Sans 3'";Chart.defaults.font.size=11;
+Chart.defaults.plugins.legend.display=false;Chart.defaults.plugins.tooltip.backgroundColor='#323238';
+Chart.defaults.plugins.tooltip.borderColor='#3a3a42';Chart.defaults.plugins.tooltip.borderWidth=1;
+Chart.defaults.plugins.tooltip.cornerRadius=10;
+Chart.defaults.plugins.tooltip.titleFont={family:"'Sora'",weight:'600',size:12};
+Chart.defaults.plugins.tooltip.bodyFont={family:"'IBM Plex Mono'",size:11};
 
-// ═══════════════════════════════════════════
-//  HELPERS
-// ═══════════════════════════════════════════
-function emptyState(icon, title, desc, code) {
-  return `<div class="empty-state"><div class="empty-state-icon">${icon}</div><div class="empty-state-title">${title}</div><div class="empty-state-desc">${desc}</div>${code ? `<div class="empty-state-code">${code}</div>` : ''}</div>`;
-}
+const CC={alimentacao:'#e8845a',cultura:'#a78bfa',natureza:'#84cc16',vida_noturna:'#f472b6',transporte:'#60a5fa',compras:'#f59e0b',roteiro:'#5bc4a8',ntg:'#ececee',outro:'#6b6b75'};
+const CL={alimentacao:'Alimentacao',cultura:'Cultura',natureza:'Natureza',vida_noturna:'Vida Noturna',transporte:'Transporte',compras:'Compras',roteiro:'Roteiros',ntg:'NTG',outro:'Outro'};
 
-const CAT_COLORS = {
-  alimentacao:'#e8845a', cultura:'#a78bfa', natureza:'#84cc16',
-  vida_noturna:'#f472b6', transporte:'#60a5fa', compras:'#f59e0b',
-  roteiro:'#5bc4a8', ntg:'#ececee', outro:'#6b6b75'
-};
-const CAT_LABELS = {
-  alimentacao:'Alimentacao', cultura:'Cultura', natureza:'Natureza',
-  vida_noturna:'Vida Noturna', transporte:'Transporte', compras:'Compras',
-  roteiro:'Roteiros', ntg:'NTG', outro:'Outro'
-};
+function emp(i,t,d,c){return`<div class="empty-state"><div class="empty-state-icon">${i}</div><div class="empty-state-title">${t}</div><div class="empty-state-desc">${d}</div>${c?`<div class="empty-state-code">${c}</div>`:''}</div>`}
+function isToday(d){const t=new Date(),x=new Date(d);return x.getFullYear()===t.getFullYear()&&x.getMonth()===t.getMonth()&&x.getDate()===t.getDate()}
+function daysAgo(n){const d=new Date();d.setDate(d.getDate()-n);d.setHours(0,0,0,0);return d}
 
-// ═══════════════════════════════════════════
-//  LOAD ALL DATA
-// ═══════════════════════════════════════════
-async function loadDashboard() {
-  const now = new Date();
-  document.getElementById('lastUpdate').textContent = now.toLocaleDateString('pt-PT') + ' · ' + now.toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit'});
+const charts={};
+function mc(id,cfg){if(charts[id])charts[id].destroy();charts[id]=new Chart(document.getElementById(id),cfg);return charts[id]}
 
+async function render(){
+  const now=new Date();
+  document.getElementById('lastUpdate').textContent='Atualizado: '+now.toLocaleTimeString('pt-PT',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   let data;
-  try {
-    data = await fetchDashboardData();
-  } catch (err) {
-    document.getElementById('connStatus').className = 'conn-status empty';
-    document.getElementById('connStatus').textContent = 'Erro de conexao';
-    console.error(err);
-    return;
-  }
+  try{data=await fetchData()}catch(e){document.getElementById('connStatus').className='conn-status empty';document.getElementById('connStatus').textContent='Erro';return}
+  if(data.error){document.getElementById('connStatus').className='conn-status empty';document.getElementById('connStatus').textContent=data.error;return}
+  document.getElementById('connStatus').className='conn-status live';document.getElementById('connStatus').textContent='Supabase conectado';
 
-  const { clientes = [], perguntas = [], pins = [], chats_count = 0 } = data;
+  const{clientes=[],perguntas=[],pins=[],chats=[]}=data;
+  const tC=clientes.length,tP=perguntas.length,tPins=pins.length,tCh=chats.length;
+  const onb=clientes.filter(c=>c.nome&&c.idioma);
+  const todayC=clientes.filter(c=>isToday(c.created_at)).length;
+  const todayM=chats.filter(c=>isToday(c.created_at)).length;
 
-  if (data.error) {
-    document.getElementById('connStatus').className = 'conn-status empty';
-    document.getElementById('connStatus').textContent = 'Erro: ' + data.error;
-    return;
-  }
+  // 6. LIVE HERO
+  document.getElementById('heroNum').textContent=todayC+todayM;
+  document.getElementById('heroT').textContent=todayC;
+  document.getElementById('heroM').textContent=todayM;
+  document.getElementById('heroP').textContent=tPins;
 
-  // ─── KPIs ───
-  const totalClientes = clientes.length;
-  const onboardComplete = clientes.filter(c => c.nome && c.idioma).length;
-  const totalPerguntas = perguntas.length;
-  const totalPins = pins.length;
+  // KPIs
+  document.getElementById('k1').textContent=tC;
+  document.getElementById('k1i').textContent=`${onb.length} com onboarding`;
+  document.getElementById('k1i').className='kpi-footer '+(tC>0?'up':'neutral');
+  document.getElementById('k2').textContent=tP;
+  document.getElementById('k2i').textContent=tP===0?'Classificador pendente':`${perguntas.filter(p=>p.respondida).length} respondidas`;
+  document.getElementById('k2i').className='kpi-footer '+(tP===0?'warn':'up');
+  document.getElementById('k3').textContent=tCh;
+  const sess=[...new Set(chats.map(c=>c.session_id))].length;
+  document.getElementById('k3i').textContent=tCh===0?'Sem mensagens':`${sess} sessoes`;
+  document.getElementById('k3i').className='kpi-footer '+(tCh>0?'up':'neutral');
+  document.getElementById('k4').textContent=tPins;
+  const nt=pins.filter(p=>p.tipo==='Non-Tourist').length,es=pins.filter(p=>p.tipo==='Essencials').length;
+  document.getElementById('k4i').textContent=`${nt} Non-Tourist · ${es} Essencials`;
+  document.getElementById('k4i').className='kpi-footer up';
+  document.getElementById('bPins').textContent=tPins+' PINS';
+  document.getElementById('badgeP').textContent=tP;
 
-  document.getElementById('kpiTuristas').textContent = totalClientes;
-  document.getElementById('kpiTuristasInfo').textContent = `${onboardComplete} com onboarding`;
-  document.getElementById('kpiTuristasInfo').className = 'kpi-footer ' + (totalClientes > 0 ? 'up' : 'neutral');
+  // 1. TIMELINE 14 DAYS
+  const days=Array.from({length:14},(_,i)=>{const d=daysAgo(13-i);return{date:d,label:d.toLocaleDateString('pt-PT',{day:'2-digit',month:'short'}),count:0}});
+  clientes.forEach(c=>{const cd=new Date(c.created_at);cd.setHours(0,0,0,0);const day=days.find(d=>d.date.getTime()===cd.getTime());if(day)day.count++});
+  document.getElementById('aTimeline').innerHTML='<div class="chart-wrap" style="height:200px"><canvas id="cTimeline"></canvas></div>';
+  mc('cTimeline',{type:'bar',data:{labels:days.map(d=>d.label),datasets:[{data:days.map(d=>d.count),backgroundColor:days.map(d=>d.count>0?'#d4a574':'#323238'),borderRadius:6,barPercentage:.5}]},options:{responsive:true,maintainAspectRatio:false,plugins:{tooltip:{callbacks:{label:c=>`${c.raw} turista${c.raw!==1?'s':''}`}}},scales:{x:{grid:{display:false},ticks:{font:{size:9}}},y:{grid:{color:'#ffffff06'},beginAtZero:true,ticks:{stepSize:1,font:{family:"'IBM Plex Mono'",size:10}}}}}});
 
-  document.getElementById('kpiOnboard').textContent = onboardComplete;
-  const pctOnboard = totalClientes > 0 ? Math.round((onboardComplete/totalClientes)*100) : 0;
-  document.getElementById('kpiOnboardInfo').textContent = `${pctOnboard}% taxa de conclusao`;
-  document.getElementById('kpiOnboardInfo').className = 'kpi-footer ' + (pctOnboard > 50 ? 'up' : 'warn');
+  // 2. ONBOARDING GAUGE
+  const aband=tC-onb.length,pctD=tC>0?Math.round((onb.length/tC)*100):0;
+  const hN=clientes.filter(c=>c.nome).length,hI=clientes.filter(c=>c.idioma).length,hD=clientes.filter(c=>c.dados&&Object.keys(c.dados).length>0).length;
+  document.getElementById('aGauge').innerHTML=`<div class="gauge-wrap"><div class="gauge-ring"><canvas id="cGauge"></canvas><div class="gauge-center"><div class="gauge-pct" style="color:${pctD>=50?'var(--teal)':'var(--orange)'}">${pctD}%</div><div class="gauge-sub">activacao</div></div></div><div class="gauge-details"><div class="gauge-row"><span><span class="gauge-dot" style="background:var(--teal)"></span>Completo</span><span style="font-family:var(--font-mono);font-weight:600">${onb.length}</span></div><div class="gauge-row"><span><span class="gauge-dot" style="background:var(--orange)"></span>Abandonado</span><span style="font-family:var(--font-mono);font-weight:600">${aband}</span></div><div class="gauge-row"><span>Com nome</span><span style="font-family:var(--font-mono)">${hN}/${tC}</span></div><div class="gauge-row"><span>Com idioma</span><span style="font-family:var(--font-mono)">${hI}/${tC}</span></div><div class="gauge-row"><span>Com preferencias</span><span style="font-family:var(--font-mono)">${hD}/${tC}</span></div></div></div>`;
+  mc('cGauge',{type:'doughnut',data:{datasets:[{data:[pctD,100-pctD],backgroundColor:[pctD>=50?'#5bc4a8':'#e8845a','#323238'],borderWidth:0}]},options:{cutout:'78%',responsive:true,plugins:{tooltip:{enabled:false}},animation:{duration:1200}}});
 
-  document.getElementById('kpiPerguntas').textContent = totalPerguntas;
-  document.getElementById('kpiPerguntasInfo').textContent = totalPerguntas === 0 ? 'Classificador nao conectado' : `${perguntas.filter(p=>p.respondida).length} respondidas`;
-  document.getElementById('kpiPerguntasInfo').className = 'kpi-footer ' + (totalPerguntas === 0 ? 'warn' : 'up');
+  // 4. TOP 5 RANKING
+  if(tP===0){document.getElementById('aRank').innerHTML=emp('🎯','Sem dados de intencao','Quando o classificador estiver ativo, aqui aparece o ranking das categorias mais pedidas.','ntg_perguntas → n8n')}
+  else{const cc={};perguntas.forEach(p=>{cc[p.categoria]=(cc[p.categoria]||0)+1});const s=Object.entries(cc).sort((a,b)=>b[1]-a[1]).slice(0,5);const mx=s[0]?s[0][1]:1;let h='<ol class="rank-list">';s.forEach(([cat,cnt],i)=>{const cl=CC[cat]||'#6b6b75';h+=`<li class="rank-item"><span class="rank-pos r${i+1}">${i+1}</span><div class="rank-info"><div class="rank-name">${CL[cat]||cat}</div><div class="rank-count-label">${cnt} perguntas</div></div><div class="rank-bar-wrap"><div class="rank-bar" style="width:${(cnt/mx)*100}%;background:${cl}"></div></div><span class="rank-count" style="color:${cl}">${cnt}</span></li>`});h+='</ol>';document.getElementById('aRank').innerHTML=h}
 
-  document.getElementById('kpiPins').textContent = totalPins;
-  document.getElementById('kpiPinsInfo').textContent = `${pins.filter(p=>p.tipo==='Non-Tourist').length} Non-Tourist · ${pins.filter(p=>p.tipo==='Essencials').length} Essencials`;
-  document.getElementById('kpiPinsInfo').className = 'kpi-footer up';
+  // 3. LANGUAGE x TIME HEATMAP
+  const allWT=[...clientes.filter(c=>c.idioma).map(c=>({idioma:c.idioma,h:new Date(c.created_at).getHours()})),...chats.filter(c=>{const cl=clientes.find(x=>x.session_id===c.session_id);return cl&&cl.idioma}).map(c=>{const cl=clientes.find(x=>x.session_id===c.session_id);return{idioma:cl.idioma,h:new Date(c.created_at).getHours()}})];
+  if(allWT.length<2){document.getElementById('aHeat').innerHTML=emp('🌍','Dados insuficientes','Precisa de mais interacoes com idioma para cruzar idioma × horario.')}
+  else{const pds=[{l:'Manha',r:[6,12]},{l:'Tarde',r:[12,18]},{l:'Noite',r:[18,24]},{l:'Madrugada',r:[0,6]}];const lgs=[...new Set(allWT.map(x=>x.idioma))];const ln={pt:'PT',en:'EN',es:'ES'};const lc={pt:'#5bc4a8',en:'#60a5fa',es:'#f59e0b'};let mx=1;const mt={};lgs.forEach(l=>{mt[l]={};pds.forEach(p=>{const c=allWT.filter(x=>x.idioma===l&&x.h>=p.r[0]&&x.h<p.r[1]).length;mt[l][p.l]=c;if(c>mx)mx=c})});let h=`<div class="heatmap" style="grid-template-columns:auto repeat(${pds.length},1fr)"><div></div>`;pds.forEach(p=>{h+=`<div class="heatmap-label">${p.l}</div>`});lgs.forEach(l=>{h+=`<div class="heatmap-label" style="text-align:right;padding-right:.4rem">${ln[l]||l}</div>`;pds.forEach(p=>{const v=mt[l][p.l];const int=v/mx;const cl=lc[l]||'#6b6b75';h+=`<div class="heatmap-cell" style="background:${cl}${Math.round(int*200+30).toString(16).padStart(2,'0')}">${v>0?v:''}</div>`})});h+='</div>';document.getElementById('aHeat').innerHTML=h}
 
-  document.getElementById('badgePerguntas').textContent = totalPerguntas;
-  document.getElementById('pinsBadge').textContent = totalPins + ' PINS';
+  // 5. ENGAGEMENT
+  if(tCh===0&&tP===0){document.getElementById('aEng').innerHTML=emp('💬','Sem dados de engagement','Quando houver conversas, aqui mostra media de mensagens por sessao e metricas.','chats_teresa + ntg_perguntas')}
+  else{const sm={};chats.forEach(c=>{sm[c.session_id]=(sm[c.session_id]||0)+1});const sids=Object.keys(sm);const avg=sids.length>0?Object.values(sm).reduce((a,b)=>a+b,0)/sids.length:0;const tR=tP>0?Math.round((perguntas.filter(p=>p.respondida).length/tP)*100):0;const conf=tP>0?Math.round((perguntas.filter(p=>!p.duvida_teresa).length/tP)*100):0;
+  document.getElementById('aEng').innerHTML=`<div class="perf-grid"><div class="perf-metric"><div class="perf-big" style="color:var(--accent)">${avg.toFixed(1)}</div><div class="perf-label">Msgs / Sessao</div><div class="perf-sub">${sids.length} sessoes</div></div><div class="perf-metric"><div class="perf-big" style="color:var(--teal)">${tR}%</div><div class="perf-label">Taxa Resposta</div><div class="perf-sub">${tP} perguntas</div></div><div class="perf-metric"><div class="perf-big" style="color:${conf>=80?'var(--teal)':'var(--orange)'}">${conf}%</div><div class="perf-label">Confianca</div><div class="perf-sub">duvida: ${100-conf}%</div></div></div><div style="margin-top:1.25rem;padding-top:.85rem;border-top:1px solid var(--border-subtle)"><div class="stat-row"><span class="stat-label">Total mensagens</span><span class="stat-value">${tCh}</span></div><div class="stat-row"><span class="stat-label">Sessoes unicas</span><span class="stat-value">${sids.length}</span></div><div class="stat-row"><span class="stat-label">Perguntas classificadas</span><span class="stat-value">${tP}</span></div><div class="stat-row"><span class="stat-label">Follow-ups enviados</span><span class="stat-value">${perguntas.filter(p=>p.follow_up_enviado).length}</span></div></div>`}
 
-  // ─── INTENCAO DONUT ───
-  const donutArea = document.getElementById('donutArea');
-  if (totalPerguntas === 0) {
-    donutArea.innerHTML = emptyState('📊', 'Sem dados de intencao', 'A tabela ntg_perguntas esta vazia. Conecte o classificador no n8n para comecar a capturar intencoes.', 'ntg_perguntas → 0 rows');
-  } else {
-    const catCounts = {};
-    perguntas.forEach(p => { catCounts[p.categoria] = (catCounts[p.categoria]||0) + 1; });
-    const cats = Object.keys(catCounts).sort((a,b) => catCounts[b]-catCounts[a]);
-    donutArea.innerHTML = '<div class="donut-container"><canvas id="chartDonut"></canvas><div class="donut-center"><div class="donut-center-val">'+totalPerguntas+'</div><div class="donut-center-label">perguntas</div></div></div>';
-    new Chart(document.getElementById('chartDonut'), {
-      type:'doughnut',
-      data:{
-        labels:cats.map(c=>CAT_LABELS[c]||c),
-        datasets:[{data:cats.map(c=>catCounts[c]),backgroundColor:cats.map(c=>CAT_COLORS[c]||'#6b6b75'),borderColor:'#2a2a2f',borderWidth:3}]
-      },
-      options:{cutout:'70%',plugins:{legend:{display:true,position:'bottom',labels:{padding:10,usePointStyle:true,pointStyleWidth:8,font:{size:10}}}}}
-    });
-  }
+  // PINS CHART
+  const tc2={};pins.forEach(p=>{const t=p.tipo||'Sem tipo';tc2[t]=(tc2[t]||0)+1});
+  document.getElementById('aPins').innerHTML='<div class="chart-wrap" style="height:200px"><canvas id="cPins"></canvas></div>';
+  mc('cPins',{type:'doughnut',data:{labels:Object.keys(tc2),datasets:[{data:Object.values(tc2),backgroundColor:Object.keys(tc2).map(t=>({'Non-Tourist':'#a78bfa','Essencials':'#5bc4a8'}[t]||'#6b6b75')),borderColor:'#2a2a2f',borderWidth:3}]},options:{cutout:'65%',plugins:{legend:{display:true,position:'bottom',labels:{padding:8,usePointStyle:true,pointStyleWidth:8,font:{size:10}}}}}});
 
-  // ─── RESPONSE CHART ───
-  const responseArea = document.getElementById('responseArea');
-  if (totalPerguntas === 0) {
-    responseArea.innerHTML = emptyState('📈', 'Sem analise de respostas', 'Quando o classificador estiver ativo, aqui vera respondidas vs. pendentes por categoria.', 'respondida = true/false');
-  } else {
-    const cats = [...new Set(perguntas.map(p=>p.categoria))];
-    const responded = cats.map(c => perguntas.filter(p=>p.categoria===c && p.respondida).length);
-    const pending = cats.map(c => perguntas.filter(p=>p.categoria===c && !p.respondida).length);
-    responseArea.innerHTML = '<div class="chart-wrap" style="height:240px"><canvas id="chartResp"></canvas></div>';
-    new Chart(document.getElementById('chartResp'), {
-      type:'bar', data:{
-        labels:cats.map(c=>CAT_LABELS[c]||c),
-        datasets:[
-          {label:'Respondida',data:responded,backgroundColor:'#5bc4a8',borderRadius:4,barPercentage:.55},
-          {label:'Pendente',data:pending,backgroundColor:'#e8845a',borderRadius:4,barPercentage:.55}
-        ]
-      },
-      options:{responsive:true,maintainAspectRatio:false,scales:{x:{stacked:true,grid:{display:false}},y:{stacked:true,grid:{color:'#ffffff06'}}},
-        plugins:{legend:{display:true,position:'top',align:'end',labels:{usePointStyle:true,pointStyleWidth:8,padding:14,font:{size:10}}}}}
-    });
-  }
+  // PINS LIST
+  const lp=document.getElementById('listPins');lp.innerHTML='';
+  pins.forEach((p,i)=>{const li=document.createElement('li');li.className='ranked-item';li.innerHTML=`<span class="ranked-pos ${i<3?'top':''}">${String(i+1).padStart(2,'0')}</span><span class="ranked-name">${p.nome}</span><span class="ranked-tipo ${p.tipo==='Non-Tourist'?'nt':'ess'}">${p.tipo||'—'}</span><span class="ranked-zona">${p.localizacao||''}</span>`;lp.appendChild(li)});
 
-  // ─── LANGUAGE BARS ───
-  const langArea = document.getElementById('langArea');
-  const withIdioma = clientes.filter(c => c.idioma);
-  if (withIdioma.length === 0) {
-    langArea.innerHTML = emptyState('🌍', 'Sem dados de idioma', 'Nenhum turista completou o onboarding com idioma definido.');
-  } else {
-    const idiomaCounts = {};
-    withIdioma.forEach(c => { idiomaCounts[c.idioma] = (idiomaCounts[c.idioma]||0)+1; });
-    const langMap = {pt:{flag:'🇵🇹',name:'Portugues',color:'#5bc4a8'},en:{flag:'🇬🇧',name:'English',color:'#60a5fa'},es:{flag:'🇪🇸',name:'Espanol',color:'#f59e0b'}};
-    let html = '';
-    Object.keys(idiomaCounts).sort((a,b)=>idiomaCounts[b]-idiomaCounts[a]).forEach((lang,i) => {
-      const info = langMap[lang] || {flag:'🏳',name:lang,color:'#6b6b75'};
-      const pct = Math.round((idiomaCounts[lang]/withIdioma.length)*100);
-      html += `<div class="lang-row"><div class="lang-flag">${info.flag}</div><div class="lang-name">${info.name}</div><div class="lang-bar-wrap"><div class="lang-bar" style="width:${pct}%;background:${info.color}"></div></div><div class="lang-pct">${idiomaCounts[lang]} (${pct}%)</div></div>`;
-    });
-    langArea.innerHTML = html;
-  }
+  // UNANSWERED
+  const pend=perguntas.filter(p=>!p.respondida&&!p.arquivada);
+  document.getElementById('badgeO').textContent=pend.length;
+  document.getElementById('bPend').textContent=pend.length+' PENDENTES';
+  if(tP===0){document.getElementById('aUnans').innerHTML=emp('🔍','Classificador pendente','Conecte o classificador no n8n para capturar oportunidades.','n8n → ntg_perguntas')}
+  else if(pend.length===0){document.getElementById('aUnans').innerHTML=emp('✅','Tudo respondido!','Sem perguntas pendentes.')}
+  else{let h='<table class="data-table"><thead><tr><th>Pergunta</th><th>Categoria</th><th>Data</th></tr></thead><tbody>';pend.slice(0,10).forEach(q=>{const c=q.categoria||'outro';h+=`<tr><td>${q.pergunta}</td><td><span class="tag tag-${c}">${CL[c]||c}</span></td><td style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-muted)">${new Date(q.created_at).toLocaleDateString('pt-PT',{day:'2-digit',month:'short'})}</td></tr>`});h+='</tbody></table>';document.getElementById('aUnans').innerHTML=h}
 
-  // ─── PINS TYPE ───
-  const pinsTypeArea = document.getElementById('pinsTypeArea');
-  if (totalPins === 0) {
-    pinsTypeArea.innerHTML = emptyState('📍', 'Sem pins', 'A tabela pins_coimbra esta vazia.');
-  } else {
-    const tipoCounts = {};
-    pins.forEach(p => { const t = p.tipo || 'Sem tipo'; tipoCounts[t] = (tipoCounts[t]||0)+1; });
-    const tipoColors = {'Non-Tourist':'#a78bfa','Essencials':'#5bc4a8','Sem tipo':'#6b6b75'};
-    pinsTypeArea.innerHTML = '<div class="chart-wrap" style="height:180px"><canvas id="chartPinsType"></canvas></div>';
-    new Chart(document.getElementById('chartPinsType'), {
-      type:'doughnut',
-      data:{
-        labels:Object.keys(tipoCounts),
-        datasets:[{data:Object.values(tipoCounts),backgroundColor:Object.keys(tipoCounts).map(t=>tipoColors[t]||'#6b6b75'),borderColor:'#2a2a2f',borderWidth:3}]
-      },
-      options:{cutout:'65%',plugins:{legend:{display:true,position:'bottom',labels:{padding:8,usePointStyle:true,pointStyleWidth:8,font:{size:10}}}}}
-    });
-  }
-
-  // ─── PINS LIST ───
-  const rankedEl = document.getElementById('rankedPins');
-  rankedEl.innerHTML = '';
-  pins.forEach((p,i) => {
-    const li = document.createElement('li');
-    li.className = 'ranked-item';
-    const tipoClass = p.tipo === 'Non-Tourist' ? 'nt' : 'ess';
-    li.innerHTML = `
-      <span class="ranked-pos ${i<3?'top':''}">${String(i+1).padStart(2,'0')}</span>
-      <span class="ranked-name">${p.nome}</span>
-      <span class="ranked-tipo ${tipoClass}">${p.tipo||'—'}</span>
-      <span class="ranked-zona">${p.localizacao||''}</span>`;
-    rankedEl.appendChild(li);
-  });
-
-  // ─── CLIENTES LIST ───
-  const clientesArea = document.getElementById('clientesArea');
-  if (totalClientes === 0) {
-    clientesArea.innerHTML = emptyState('👤', 'Sem turistas', 'Nenhum turista registado ainda.');
-  } else {
-    let html = '<table class="data-table"><thead><tr><th>Nome</th><th>Idioma</th><th>Dados</th><th>Data</th></tr></thead><tbody>';
-    clientes.forEach(c => {
-      const nome = c.nome || '<span style="color:var(--text-muted)">—</span>';
-      const idioma = c.idioma ? `<span class="tag" style="background:var(--bg-elevated)">${c.idioma.toUpperCase()}</span>` : '<span style="color:var(--text-muted)">—</span>';
-      const dados = c.dados && Object.keys(c.dados).length > 0 ? Object.entries(c.dados).map(([k,v])=>`<span style="font-size:.6rem;color:var(--accent)">${k}: ${v}</span>`).join(' ') : '<span style="color:var(--text-muted);font-size:.65rem">vazio</span>';
-      const data = new Date(c.created_at).toLocaleDateString('pt-PT',{day:'2-digit',month:'short'});
-      html += `<tr><td style="font-weight:500">${nome}</td><td>${idioma}</td><td>${dados}</td><td style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-muted)">${data}</td></tr>`;
-    });
-    html += '</tbody></table>';
-    clientesArea.innerHTML = html;
-  }
-
-  // ─── UNANSWERED ───
-  const unansweredArea = document.getElementById('unansweredArea');
-  const pendentes = perguntas.filter(p => !p.respondida && !p.arquivada);
-  document.getElementById('badgeOport').textContent = pendentes.length;
-  document.getElementById('pendBadge').textContent = pendentes.length + ' PENDENTES';
-  if (totalPerguntas === 0) {
-    unansweredArea.innerHTML = emptyState('🔍', 'Classificador nao conectado', 'Quando o classificador estiver ativo no n8n, as perguntas sem resposta aparecerão aqui como oportunidades de conteudo.', 'n8n → classificador → ntg_perguntas');
-  } else if (pendentes.length === 0) {
-    unansweredArea.innerHTML = emptyState('✅', 'Tudo respondido!', 'Nenhuma pergunta pendente de momento.');
-  } else {
-    let html = '<table class="data-table"><thead><tr><th>Estado</th><th>Pergunta</th><th>Categoria</th><th>Data</th><th>Follow-up</th></tr></thead><tbody>';
-    pendentes.slice(0,15).forEach(q => {
-      const cat = q.categoria || 'outro';
-      const data = new Date(q.created_at).toLocaleDateString('pt-PT',{day:'2-digit',month:'short'});
-      html += `<tr><td><span class="status-dot pending"></span>Pendente</td><td style="max-width:280px">${q.pergunta}</td><td><span class="tag tag-${cat}">${CAT_LABELS[cat]||cat}</span></td><td style="font-family:var(--font-mono);font-size:.7rem;color:var(--text-muted)">${data}</td><td>${q.follow_up_enviado?'<span style="color:var(--teal);font-size:.72rem">✓</span>':'<span style="color:var(--orange);font-size:.72rem">⏳</span>'}</td></tr>`;
-    });
-    html += '</tbody></table>';
-    unansweredArea.innerHTML = html;
-  }
-
-  // ─── PERFORMANCE ───
-  const perfArea = document.getElementById('perfArea');
-  if (totalPerguntas === 0) {
-    perfArea.innerHTML = emptyState('🤖', 'Sem metricas', 'Performance da Teresa sera calculada quando houver perguntas classificadas na ntg_perguntas.');
-  } else {
-    const confianca = Math.round((perguntas.filter(p=>!p.duvida_teresa).length/totalPerguntas)*100);
-    const taxaResp = Math.round((perguntas.filter(p=>p.respondida).length/totalPerguntas)*100);
-    const followTotal = perguntas.filter(p=>!p.respondida).length;
-    const followDone = perguntas.filter(p=>!p.respondida && p.follow_up_enviado).length;
-    const followPct = followTotal > 0 ? Math.round((followDone/followTotal)*100) : 100;
-
-    perfArea.innerHTML = `
-      <div class="perf-grid">
-        <div class="perf-metric"><div class="perf-ring-wrap"><canvas id="ringConf"></canvas><div class="perf-ring-val" style="color:var(--teal)">${confianca}%</div></div><div class="perf-label">Confianca</div><div class="perf-sub">duvida em ${100-confianca}%</div></div>
-        <div class="perf-metric"><div class="perf-ring-wrap"><canvas id="ringFollow"></canvas><div class="perf-ring-val" style="color:var(--orange)">${followPct}%</div></div><div class="perf-label">Follow-ups</div><div class="perf-sub">${followTotal-followDone} pendentes</div></div>
-      </div>
-      <div style="margin-top:1.25rem;padding-top:.85rem;border-top:1px solid var(--border-subtle)">
-        <div class="stat-row"><span class="stat-label">Taxa de resposta</span><span class="stat-value" style="color:var(--teal)">${taxaResp}%</span></div>
-        <div class="stat-row"><span class="stat-label">Total perguntas</span><span class="stat-value">${totalPerguntas}</span></div>
-        <div class="stat-row"><span class="stat-label">Pendentes</span><span class="stat-value" style="color:var(--orange)">${pendentes.length}</span></div>
-      </div>`;
-    function ring(id,pct,color){new Chart(document.getElementById(id),{type:'doughnut',data:{datasets:[{data:[pct,100-pct],backgroundColor:[color,'#323238'],borderWidth:0}]},options:{cutout:'80%',responsive:true,plugins:{tooltip:{enabled:false}},animation:{duration:1200}}})}
-    ring('ringConf',confianca,'#5bc4a8');
-    ring('ringFollow',followPct,'#e8845a');
-  }
-
-  // ─── ARCHITECTURE MAP ───
-  const archEl = document.getElementById('archMap');
-  const tables = [
-    {icon:'💬',name:'ntg_perguntas',rows:totalPerguntas,color:'teal',desc:'Perguntas classificadas'},
-    {icon:'👤',name:'clientes_teresa',rows:totalClientes,color:'purple',desc:'Perfis dos turistas'},
-    {icon:'📍',name:'pins_coimbra',rows:totalPins,color:'orange',desc:'Base de conhecimento'},
-    {icon:'💬',name:'chats_teresa',rows:chats_count||0,color:'sky',desc:'Historico de mensagens'},
-  ];
-  archEl.innerHTML = tables.map(t => `
-    <div class="arch-node arch-node-${t.color}">
-      <div class="arch-node-icon">${t.icon}</div>
-      <div class="arch-node-name">${t.name}</div>
-      <div class="arch-node-count" style="color:${t.rows>0?'var(--text-primary)':'var(--text-muted)'}">${t.rows}</div>
-      <div class="arch-node-rows">${t.rows>0?t.desc:'Tabela vazia'}</div>
-    </div>`).join('');
+  // ARCHITECTURE
+  document.getElementById('arch').innerHTML=[{i:'💬',n:'ntg_perguntas',r:tP,c:'teal'},{i:'👤',n:'clientes_teresa',r:tC,c:'purple'},{i:'📍',n:'pins_coimbra',r:tPins,c:'orange'},{i:'💬',n:'chats_teresa',r:tCh,c:'sky'}].map(t=>`<div class="arch-node arch-node-${t.c}"><div class="arch-node-icon">${t.i}</div><div class="arch-node-name">${t.n}</div><div class="arch-node-count" style="color:${t.r>0?'var(--text-primary)':'var(--text-muted)'}">${t.r}</div><div class="arch-node-rows">${t.r>0?'registos':'vazia'}</div></div>`).join('');
 }
 
-// ─── SIDEBAR NAV ───
-document.querySelectorAll('.sidebar-item[href]').forEach(a => {
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    document.querySelectorAll('.sidebar-item').forEach(x => x.classList.remove('active'));
-    a.classList.add('active');
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) target.scrollIntoView({behavior:'smooth',block:'start'});
-    if (window.innerWidth < 1100) document.getElementById('sidebar').classList.remove('open');
-  });
-});
+document.querySelectorAll('.sidebar-item[href]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();document.querySelectorAll('.sidebar-item').forEach(x=>x.classList.remove('active'));a.classList.add('active');const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});if(window.innerWidth<1100)document.getElementById('sidebar').classList.remove('open')})});
 
-// ─── INIT ───
-loadDashboard().catch(err => {
-  console.error('Dashboard load error:', err);
-  document.getElementById('connStatus').className = 'conn-status empty';
-  document.getElementById('connStatus').textContent = 'Erro de conexao';
-});
+render();
+setInterval(render,60000);
 </script>
 </body>
 </html>

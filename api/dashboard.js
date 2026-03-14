@@ -8,16 +8,10 @@ export default async function handler(req, res) {
   const SB_KEY = process.env.SUPABASE_KEY;
 
   if (!SB_URL || !SB_KEY) {
-    return res.status(500).json({
-      error: 'Supabase credentials not configured',
-      has_url: !!SB_URL,
-      has_key: !!SB_KEY,
-      url_preview: SB_URL ? SB_URL.substring(0, 30) + '...' : null,
-    });
+    return res.status(500).json({ error: 'Supabase credentials not configured' });
   }
 
   const baseUrl = SB_URL.includes('/rest/v1') ? SB_URL : `${SB_URL}/rest/v1`;
-
   const headers = {
     'apikey': SB_KEY,
     'Authorization': `Bearer ${SB_KEY}`,
@@ -25,7 +19,6 @@ export default async function handler(req, res) {
   };
 
   const errors = [];
-
   async function query(table, params = '') {
     const url = `${baseUrl}/${table}?${params}`;
     try {
@@ -47,15 +40,15 @@ export default async function handler(req, res) {
       query('clientes_teresa', 'select=session_id,nome,idioma,companhia,area_estadia,dados,created_at&order=created_at.desc'),
       query('ntg_perguntas', 'select=*&order=created_at.desc'),
       query('pins_coimbra', 'select=id,nome,tipo,categoria,localizacao,faixa_preco&order=id'),
-      query('chats_teresa', 'select=id&limit=1'),
+      query('chats_teresa', 'select=session_id,created_at,role&order=created_at.desc&limit=5000'),
     ]);
 
-    res.setHeader('Cache-Control', 's-maxage=30, stale-while-revalidate=60');
+    res.setHeader('Cache-Control', 's-maxage=15, stale-while-revalidate=30');
     return res.status(200).json({
       clientes,
       perguntas,
       pins,
-      chats_count: chats.length,
+      chats,
       _debug: errors.length > 0 ? { errors, base_url: baseUrl } : undefined,
     });
   } catch (err) {
